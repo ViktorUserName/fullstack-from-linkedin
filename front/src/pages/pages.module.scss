@@ -1,0 +1,71 @@
+.nav {
+    position: relative;
+    font-size: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    text-transform: uppercase;
+    width: 100%;
+    &::after{
+        content: '';
+        border-bottom: 1px solid black;
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+    }
+    & > li {
+        height: 100%;
+        padding: 10px;
+    }
+    & > li > a {
+        color: black;
+    }
+    & > li {
+        // padding: 10px;
+        &:hover {
+            background-color: black;
+            & > a {
+                color: white;
+            }
+        }
+    }
+}
+
+* {
+    text-align: center;
+}
+
+.article{
+    &P{
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 30px 0 0 0;
+        text-align: left;
+    }
+}
+
+.link {
+    color: black;
+    padding: 30px 0;
+    display: block;
+    position: relative;
+    &::after{
+        content: '';
+        border-bottom: 1px solid black;
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        width: 50%;
+    }
+    // max-width: 70px;
+    & > p {
+        max-width: 300px;
+        text-align: left;
+        color: black;
+        margin: 0 auto;
+    }
+    cursor: pointer;
+
+}
