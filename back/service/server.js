@@ -15,8 +15,12 @@ app.get('/api/articles/:name', async function(request, response){
     const client = new MongoClient('mongodb://0.0.0.0:27017/')
     await client.connect();
     const db = client.db('react-blog-db');
-    const article = await db.collection('articles').findOne({})
-    response.json(article)
+    const article = await db.collection('articles').findOne({name})
+    if(article){
+        response.json(article)
+    }else {
+        response.send('bad response')
+    }
 })
 
 // const articlesInfo = [{
@@ -36,25 +40,46 @@ app.get('/api/articles/:name', async function(request, response){
 // }
 // ]
 
-app.put('/api/articles/:name/upvote', function(request, response){
+app.put('/api/articles/:name/upvote', async function(request, response){
     const { name } = request.params;
-    const article = articlesInfo.find( a => a.name === name)
+    // const article = articlesInfo.find( a => a.name === name)
+    const client = new MongoClient('mongodb://0.0.0.0:27017/');
+    await client.connect();
+
+    const db = client.db('react-blog-db');
+    await db.collection('articles').updateOne({name}, {
+        $inc: {
+            upvotes: 1
+        }
+    })
+
+    const article = await db.collection('articles').findOne({name})
+    
+    
     if (article){
-        article.upvotes += 1
         response.send(`The ${name} has ${article.upvotes} upvotes`)
     } else {
         response.send('That art don ex')
     }
 })
 
-app.post('/api/articles/:name/comments', function(request, response){
+app.post('/api/articles/:name/comments', async function(request, response){
     const { name } = request.params;
     const { postedBy, text } = request.body;
-    const article = articlesInfo.find ( a => a.name === name)
+    const client = new MongoClient('mongodb://0.0.0.0:27017/');
+    await client.connect();
+    const db = client.db('react-blog-db');
+
+    await db.collection('articles').updateOne({name},{
+        $push: {
+            comments: { postedBy, text }
+        }
+    })
+
+    const article = await db.collection('articles').findOne({name})
+
+    
     if(article){
-        article.comments.push(
-        {postedBy, text}
-        )
         response.send(article.comments)
     }else{
         response.send('comment is does exi')
