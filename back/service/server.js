@@ -65,7 +65,7 @@ app.post('/api/articles/:name/comments', async function(request, response){
 
     
     if(article){
-        response.send(article.comments)
+        response.json(article)
     }else{
         response.send('comment is does exi')
     }

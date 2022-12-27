@@ -4,6 +4,7 @@ import axios from 'axios';
 import articles from './article-data';
 import s from './pages.module.scss'
 import CommetsList from '../components/CommetsList';
+import AddCommentForm from '../components/AddCommentForm';
 
 const Articlepage = () => {
     const [articleInfo, setArticleInfo] = useState({
@@ -47,6 +48,9 @@ const Articlepage = () => {
             {article.content.map(paragraph => (
                  <p className={s.articleP} key={Math.random(100)}>{paragraph}</p> //// need to correct key
             ))}
+            <AddCommentForm articlesName={articleId} 
+                            onArticleUpdated={updateArticle => setArticleInfo(updateArticle)}
+            />
             <CommetsList comments={articleInfo.comments} />
             </>
     );
