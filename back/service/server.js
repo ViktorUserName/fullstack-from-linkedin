@@ -23,22 +23,7 @@ app.get('/api/articles/:name', async function(request, response){
     }
 })
 
-// const articlesInfo = [{
-//     name: 'learn-react',
-//     upvotes: 0,
-//     comments: []
-// },
-// {
-//     name: 'learn-react',
-//     upvotes: 0,
-//     comments: []
-// },
-// {
-//     name: 'mongodb',
-//     upvotes: 0,
-//     comments: []
-// }
-// ]
+
 
 app.put('/api/articles/:name/upvote', async function(request, response){
     const { name } = request.params;

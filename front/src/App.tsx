@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -28,3 +29,6 @@ function App() {
 }
 
 export default App;
+
+// const respons = await axios.get('http://localhost:3001/api/articles/learn-react/')
+// const data = respons.data
