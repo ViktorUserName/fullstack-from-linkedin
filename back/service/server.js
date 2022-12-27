@@ -42,7 +42,7 @@ app.put('/api/articles/:name/upvote', async function(request, response){
     
     
     if (article){
-        response.send(`The ${name} has ${article.upvotes} upvotes`)
+        response.json(article)
     } else {
         response.send('That art don ex')
     }

@@ -26,17 +26,23 @@ const Articlepage = () => {
 
         const loadInfo = async () => {
             const response = await axios.get(`http://localhost:3001/api/articles/${articleId}`)
-        const newArticleInfo = response.data;
-        setArticleInfo(newArticleInfo)
+            const newArticleInfo = response.data;
+            setArticleInfo(newArticleInfo)
         }
         loadInfo();
     }, [])
 
+    const addUpvote = async () => {
+        const response = await axios.put(`http://localhost:3001/api/articles/${articleId}/upvote`)
+        const updateArticle = response.data;
+        setArticleInfo(updateArticle);
+    }
 
     if(!article){return <div>not found</div>}
     return (
             <>
             <h1>{article.title}</h1>
+            <button onClick={addUpvote}>Upvote</button>
             <p>This article has {articleInfo.upvotes}</p>
             {article.content.map(paragraph => (
                  <p className={s.articleP} key={Math.random(100)}>{paragraph}</p> //// need to correct key
