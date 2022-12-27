@@ -57,6 +57,26 @@
         padding: 40px 0 20px 0;
     }
 }
+.commentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    // justify-content: left;
+    width: 50%;
+    margin: 10px auto;
+    align-items: flex-start;
+    padding: 20px 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+    & > label {
+        display: flex;
+        flex-direction: column;
+        // border: none;
+        gap: 20px;
+        // justify-content: space-between;
+    }
+}
 .link {
     color: black;
     padding: 30px 0;

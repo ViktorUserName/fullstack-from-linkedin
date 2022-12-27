@@ -9,6 +9,7 @@ const CommetsList = ({comments}) => {
             <div className={s.comments} key={comments.postedBy + ': ' + comments.text}>
                 <h4>{comments.postedBy}</h4>
                 <p>{comments.text}</p>
+                {/* <button>delet post</button> */}
             </div>
             ))
             }

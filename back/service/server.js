@@ -27,7 +27,6 @@ app.get('/api/articles/:name', async function(request, response){
 
 app.put('/api/articles/:name/upvote', async function(request, response){
     const { name } = request.params;
-    // const article = articlesInfo.find( a => a.name === name)
     const client = new MongoClient('mongodb://0.0.0.0:27017/');
     await client.connect();
 
@@ -47,6 +46,43 @@ app.put('/api/articles/:name/upvote', async function(request, response){
         response.send('That art don ex')
     }
 })
+
+app.put('/api/articles/:name/downvote', async function(request, response){
+    const { name }  = request.params;
+    const client = new MongoClient('mongodb://0.0.0.0:27017/');
+    await client.connect();
+
+    const db = client.db('react-blog-db');
+    await db.collection('articles').updateOne({name}, {
+        $inc: {
+            upvotes: -1
+        }
+    })
+
+    const article = await db.collection('articles').findOne({name})
+
+    if(article){
+        response.json(article)
+    } else {
+        response.send('bad req')
+    }  
+})
+
+// app.delete('/api/articles/:name/comments/', async function(request, response){
+//     const { name } = request.params;
+//     const { postedBy, text } = request.body;
+//     const client = new MongoClient('mongodb://0.0.0.0:27017/');
+//     await client.connect();
+//     const db = client.db('react-blog-db');
+//     const collection = db.collection('articles')
+
+//     const result = await collection.deleteOne({postedBy})
+//     const article = await db.collection('articles').findOne({name})
+
+//     response.send(article)
+    
+
+// })
 
 app.post('/api/articles/:name/comments', async function(request, response){
     const { name } = request.params;
@@ -82,8 +118,4 @@ app.post('/api/articles/:name/comments', async function(request, response){
 
 
 
-// app.get('/hello/:name', function(request, response){
-//     const { name } = request.params;
-//     response.send(`hi ${name}`)
-// })
 app.listen(3001)

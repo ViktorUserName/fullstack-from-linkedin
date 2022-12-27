@@ -12,19 +12,8 @@ const Articlepage = () => {
     })
     const { articleId } = useParams();
     const article = articles.find(article => article.name === articleId)
-    
-    useEffect( () => {
-        // const response = async () => {
-        //     try {
-        //     const response = await axios.get(`http://localhost:3001/api/articles/${articleId}`)
-        // const newArticleInfo = response.data;
-        // setArticleInfo(newArticleInfo)
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
-        // response()
 
+    useEffect( () => {
         const loadInfo = async () => {
             const response = await axios.get(`http://localhost:3001/api/articles/${articleId}`)
             const newArticleInfo = response.data;
@@ -39,11 +28,22 @@ const Articlepage = () => {
         setArticleInfo(updateArticle);
     }
 
+    const addDownvote = async () => {
+        const response = await axios.put(`http://localhost:3001/api/articles/${articleId}/downvote`)
+        const updateArticle = response.data;
+        setArticleInfo(updateArticle)
+    }
+
+    // const slicePost = async () => {
+    //     const response = await axios.get(`http://localhost:3001/api/articles/${articleId}`)
+    //     const comment = response.data.comment.slice(0,)
+
     if(!article){return <div>not found</div>}
     return (
             <>
             <h1>{article.title}</h1>
             <button onClick={addUpvote}>Upvote</button>
+            <button onClick={addDownvote}>Downvote</button>
             <p>This article has {articleInfo.upvotes}</p>
             {article.content.map(paragraph => (
                  <p className={s.articleP} key={Math.random(100)}>{paragraph}</p> //// need to correct key
@@ -57,3 +57,15 @@ const Articlepage = () => {
 };
 
 export default Articlepage;
+
+
+        // const response = async () => {
+        //     try {
+        //     const response = await axios.get(`http://localhost:3001/api/articles/${articleId}`)
+        // const newArticleInfo = response.data;
+        // setArticleInfo(newArticleInfo)
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+        // response()

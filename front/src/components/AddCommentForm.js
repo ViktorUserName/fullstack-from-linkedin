@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import s from '../pages/pages.module.scss'
 
 const AddCommentForm = ({ articlesName, onArticleUpdated }) => {
     const [name, setName] = useState('');
@@ -18,7 +19,7 @@ const AddCommentForm = ({ articlesName, onArticleUpdated }) => {
 
 
     return (
-        <div id="add-comment-form">
+        <div id="add-comment-form" className={s.commentForm}>
             <h3>Add a comment</h3>
             <label htmlFor="" >
                 Name:
